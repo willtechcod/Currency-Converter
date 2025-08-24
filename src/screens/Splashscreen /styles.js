@@ -8,4 +8,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.background,
   },
+  text: {
+    color: colors.text,
+    fontSize: 24,
+    marginBottom: 20,
+  },
 });
