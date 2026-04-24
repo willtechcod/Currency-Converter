@@ -15,7 +15,7 @@ import { styles } from "./styles";
 import { Button } from "../../components/Button";
 import { currencies } from "../../constants/currencies";
 import { Input } from "../../components/input";
-import { ResultCard } from "../../components/ResultCard";
+import { ResultModal } from "../../components/ResultModal";
 import { exchangeRateApi } from "../../services/api";
 import { convertCurrency } from "../../utils/convertCurrency";
 
@@ -26,16 +26,18 @@ export default function Home() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function fetchExchangeRate() {
     try {
       setLoading(true);
       if (!amount) return;
-      const data = await exchangeRateApi(fromCurrency);
+      const data = await exchangeRateApi(fromCurrency, toCurrency);
       const rate = data.rates[toCurrency];
       setExchangeRate(rate);
       const covertedAmount = convertCurrency(amount, rate);
       setResult(covertedAmount);
+      setModalVisible(true);
     } catch (err) {
       Alert.alert("Erro", "Não foi possível obter a taxa de câmbio.");
       console.error(err);
@@ -52,6 +54,17 @@ export default function Home() {
     setExchangeRate(null);
   }
 
+  function closeModal() {
+    setModalVisible(false);
+  }
+
+  function newConversion() {
+    setModalVisible(false);
+    setAmount("");
+    setResult("");
+    setExchangeRate(null);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -64,7 +77,7 @@ export default function Home() {
             <View style={styles.header}>
               <Text style={styles.title}>Conversor de Moedas</Text>
               <Text style={styles.subTitle}>
-                Converta valores entre diferentes moedas
+                Converta valores entre diferentes moedas e criptomoedas
               </Text>
             </View>
             <View style={styles.card}>
@@ -118,17 +131,21 @@ export default function Home() {
                 <Text style={styles.swapButtonText}>Converter</Text>
               )}
             </TouchableOpacity>
-
-            <ResultCard
-              exchangeRate={exchangeRate}
-              result={result}
-              fromCurrency={fromCurrency}
-              toCurrency={toCurrency}
-              currencies={currencies}
-            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <ResultModal
+        visible={modalVisible}
+        result={result}
+        exchangeRate={exchangeRate}
+        fromCurrency={fromCurrency}
+        toCurrency={toCurrency}
+        currencies={currencies}
+        amount={amount}
+        onClose={closeModal}
+        onNewConversion={newConversion}
+      />
     </SafeAreaView>
   );
 }

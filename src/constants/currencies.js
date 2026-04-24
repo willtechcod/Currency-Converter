@@ -1,7 +1,7 @@
 export  const currencies = [
   { code: "USD", name: "Dólar Americano", symbol: "$" },
   { code: "BRL", name: "Real Brasileiro", symbol: "R$" },
-  { code: "EUR", name: "Euro", symbol: "£" },
+  { code: "EUR", name: "Euro", symbol: "€" },
   { code: "GBP", name: "Libra Esterllina", symbol: "£" },
   { code: "JPY", name: "Iene Japonês", symbol: "¥" },
   { code: "CAD", name: "Dólar Canadense", symbol: "CA$" },
@@ -9,4 +9,12 @@ export  const currencies = [
   { code: "CHF", name: "Franco Suíço", symbol: "Fr" },
   { code: "CNY", name: "Yuan Chinês", symbol: "¥" },
   { code: "INR", name: "Rupia Indiana", symbol: "₹" },
+  { code: "BTC", name: "Bitcoin", symbol: "₿" },
+  { code: "ETH", name: "Ethereum", symbol: "Ξ" },
+  { code: "USDT", name: "Tether", symbol: "₮" },
+  { code: "BNB", name: "BNB", symbol: "⬡" },
+  { code: "SOL", name: "Solana", symbol: "◎" },
+  { code: "XRP", name: "Ripple", symbol: "✕" },
+  { code: "ADA", name: "Cardano", symbol: "₳" },
+  { code: "DOGE", name: "Dogecoin", symbol: "Ð" },
 ];
